@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SIMATS Transports — Pass</title>
+  <style>
+    :root {
+      --blue: #2ea5ec;
+      --green: #24b24a;
+      --white: #fff;
+      --dark: #0b4460;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      margin: 0;
+      background: #f6f8fb;
+      color: #111;
+    }
+
+    .topbar {
+      background: var(--blue);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+    }
+
+    .topbar .logo {
+      font-weight: 700;
+    }
+
+    .time-banner {
+      background: var(--green);
+      color: #fff;
+      text-align: center;
+      padding: 10px 6px;
+      font-weight: 700;
+    }
+
+    .time-banner small {
+      display: block;
+      font-weight: 600;
+    }
+
+    .valid-text {
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      padding: 6px;
+      margin-top: 4px;
+      display: inline-block;
+      border-radius: 4px;
+    }
+
+    .card {
+      max-width: 420px;
+      margin: 18px auto;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(2, 20, 40, 0.08);
+      position: relative;
+    }
+
+    .photo {
+      height: 360px;
+      background: #ddd;
+      position: relative;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .qr-overlay {
+      position: absolute;
+      bottom: -65px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 8px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .qr-overlay img {
+      width: 130px;
+      height: 130px;
+    }
+
+    .meta {
+      padding: 90px 20px 18px;
+      text-align: center;
+    }
+
+    .name {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .id {
+      letter-spacing: 2px;
+      margin-top: 6px;
+    }
+
+    .route {
+      background: var(--green);
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      font-weight: 800;
+    }
+
+    /* updated nav to match screenshot */
+    .nav {
+      position: relative;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 14px 0;
+      border-top: 6px solid var(--green); /* green strip */
+    }
+
+    .nav .btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        margin: 8px;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center">🏫</div>
+    <div class="logo">SIMATS TRANSPORTS</div>
+    <div style="margin-left:auto;font-size:14px;opacity:0.95">Menu ☰</div>
+  </header>
+
+  <div class="time-banner">
+    <small id="date-text">--</small>
+    <div id="big-time">--:--:--</div>
+    <div class="valid-text">VALID</div>
+  </div>
+
+  <main class="card">
+    <div class="photo">
+      <img id="profile-photo" src="profile.jpg" alt="profile" />
+      <div class="qr-overlay">
+        <img class="qr" id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BHARANI%20DHARAN%20S%7C192424141" alt="QR">
+      </div>
+    </div>
+
+    <div class="meta">
+      <p class="name" id="stu-name">THARUNESH P</p>
+      <div class="id" id="stu-id">1924221272</div>
+    </div>
+
+    <div class="route">KUNDRATHUR 21D</div>
+
+    <nav class="nav">
+      <div class="btn">👤<div>Profile</div></div>
+      <div class="btn">🏠<div>Home</div></div>
+      <div class="btn">🔔<div>Alerts</div></div>
+    </nav>
+  </main>
+
+  <script>
+    function pad(n) {
+      return n < 10 ? '0' + n : n;
+    }
+
+    function monthName(m) {
+      return ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'][m];
+    }
+
+    function updateTime() {
+      const now = new Date();
+      const d = pad(now.getDate());
+      const m = monthName(now.getMonth());
+      const y = now.getFullYear();
+      const hh = pad(now.getHours());
+      const mm = pad(now.getMinutes());
+      const ss = pad(now.getSeconds());
+
+      document.getElementById('date-text').textContent = `${d}-${m}-${y}`;
+      document.getElementById('big-time').textContent = `${hh}:${mm}:${ss}`;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>
